@@ -8,20 +8,44 @@
 
 /* Begin PBXBuildFile section */
 		F2D1609D1F0EB07F0040E773 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D1609C1F0EB07F0040E773 /* AppDelegate.swift */; };
-		F2D1609F1F0EB07F0040E773 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D1609E1F0EB07F0040E773 /* ViewController.swift */; };
 		F2D160A21F0EB07F0040E773 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2D160A01F0EB07F0040E773 /* Main.storyboard */; };
 		F2D160A41F0EB07F0040E773 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2D160A31F0EB07F0040E773 /* Assets.xcassets */; };
 		F2D160A71F0EB07F0040E773 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2D160A51F0EB07F0040E773 /* LaunchScreen.storyboard */; };
+		F2D160AF1F0EBBD70040E773 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160AE1F0EBBD70040E773 /* NowPlayingViewController.swift */; };
+		F2D160B11F0EBC840040E773 /* SearchAppleMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B01F0EBC840040E773 /* SearchAppleMusicViewController.swift */; };
+		F2D160B31F0EBF560040E773 /* SearchAppleMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B21F0EBF560040E773 /* SearchAppleMusicTableViewCell.swift */; };
+		F2D160BE1F0EC32B0040E773 /* AppleMusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B41F0EC32B0040E773 /* AppleMusicManager.swift */; };
+		F2D160BF1F0EC32B0040E773 /* AppleMusicRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B51F0EC32B0040E773 /* AppleMusicRequest.swift */; };
+		F2D160C01F0EC32B0040E773 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B61F0EC32B0040E773 /* Artwork.swift */; };
+		F2D160C11F0EC32B0040E773 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B71F0EC32B0040E773 /* AuthorizationManager.swift */; };
+		F2D160C21F0EC32B0040E773 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B81F0EC32B0040E773 /* ImageManager.swift */; };
+		F2D160C31F0EC32B0040E773 /* JSONKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160B91F0EC32B0040E773 /* JSONKeys.swift */; };
+		F2D160C41F0EC32B0040E773 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160BA1F0EC32B0040E773 /* MediaItem.swift */; };
+		F2D160C51F0EC32B0040E773 /* MediaLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160BB1F0EC32B0040E773 /* MediaLibraryManager.swift */; };
+		F2D160C61F0EC32B0040E773 /* MusicPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160BC1F0EC32B0040E773 /* MusicPlayerManager.swift */; };
+		F2D160C71F0EC32B0040E773 /* SerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D160BD1F0EC32B0040E773 /* SerializationError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F2D160991F0EB07F0040E773 /* AppleMusicAPIArtworkBug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleMusicAPIArtworkBug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D1609C1F0EB07F0040E773 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F2D1609E1F0EB07F0040E773 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F2D160A11F0EB07F0040E773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2D160A31F0EB07F0040E773 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2D160A61F0EB07F0040E773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2D160A81F0EB07F0040E773 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2D160AE1F0EBBD70040E773 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
+		F2D160B01F0EBC840040E773 /* SearchAppleMusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAppleMusicViewController.swift; sourceTree = "<group>"; };
+		F2D160B21F0EBF560040E773 /* SearchAppleMusicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAppleMusicTableViewCell.swift; sourceTree = "<group>"; };
+		F2D160B41F0EC32B0040E773 /* AppleMusicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicManager.swift; sourceTree = "<group>"; };
+		F2D160B51F0EC32B0040E773 /* AppleMusicRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicRequest.swift; sourceTree = "<group>"; };
+		F2D160B61F0EC32B0040E773 /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
+		F2D160B71F0EC32B0040E773 /* AuthorizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		F2D160B81F0EC32B0040E773 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		F2D160B91F0EC32B0040E773 /* JSONKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONKeys.swift; sourceTree = "<group>"; };
+		F2D160BA1F0EC32B0040E773 /* MediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
+		F2D160BB1F0EC32B0040E773 /* MediaLibraryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaLibraryManager.swift; sourceTree = "<group>"; };
+		F2D160BC1F0EC32B0040E773 /* MusicPlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerManager.swift; sourceTree = "<group>"; };
+		F2D160BD1F0EC32B0040E773 /* SerializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +79,57 @@
 			isa = PBXGroup;
 			children = (
 				F2D1609C1F0EB07F0040E773 /* AppDelegate.swift */,
-				F2D1609E1F0EB07F0040E773 /* ViewController.swift */,
+				F2D160C81F0EC4280040E773 /* Views */,
+				F2D160C91F0EC46F0040E773 /* Managers */,
+				F2D160CA1F0EC5FD0040E773 /* Utilities */,
+				F2D160CB1F0EC6110040E773 /* Model */,
 				F2D160A01F0EB07F0040E773 /* Main.storyboard */,
 				F2D160A31F0EB07F0040E773 /* Assets.xcassets */,
 				F2D160A51F0EB07F0040E773 /* LaunchScreen.storyboard */,
 				F2D160A81F0EB07F0040E773 /* Info.plist */,
 			);
 			path = AppleMusicAPIArtworkBug;
+			sourceTree = "<group>";
+		};
+		F2D160C81F0EC4280040E773 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F2D160AE1F0EBBD70040E773 /* NowPlayingViewController.swift */,
+				F2D160B01F0EBC840040E773 /* SearchAppleMusicViewController.swift */,
+				F2D160B21F0EBF560040E773 /* SearchAppleMusicTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		F2D160C91F0EC46F0040E773 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F2D160B41F0EC32B0040E773 /* AppleMusicManager.swift */,
+				F2D160B71F0EC32B0040E773 /* AuthorizationManager.swift */,
+				F2D160B81F0EC32B0040E773 /* ImageManager.swift */,
+				F2D160BB1F0EC32B0040E773 /* MediaLibraryManager.swift */,
+				F2D160BC1F0EC32B0040E773 /* MusicPlayerManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		F2D160CA1F0EC5FD0040E773 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F2D160B51F0EC32B0040E773 /* AppleMusicRequest.swift */,
+				F2D160B91F0EC32B0040E773 /* JSONKeys.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		F2D160CB1F0EC6110040E773 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F2D160B61F0EC32B0040E773 /* Artwork.swift */,
+				F2D160BA1F0EC32B0040E773 /* MediaItem.swift */,
+				F2D160BD1F0EC32B0040E773 /* SerializationError.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +205,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2D1609F1F0EB07F0040E773 /* ViewController.swift in Sources */,
+				F2D160BF1F0EC32B0040E773 /* AppleMusicRequest.swift in Sources */,
+				F2D160C11F0EC32B0040E773 /* AuthorizationManager.swift in Sources */,
+				F2D160AF1F0EBBD70040E773 /* NowPlayingViewController.swift in Sources */,
+				F2D160C21F0EC32B0040E773 /* ImageManager.swift in Sources */,
+				F2D160C51F0EC32B0040E773 /* MediaLibraryManager.swift in Sources */,
+				F2D160C01F0EC32B0040E773 /* Artwork.swift in Sources */,
+				F2D160C61F0EC32B0040E773 /* MusicPlayerManager.swift in Sources */,
+				F2D160B11F0EBC840040E773 /* SearchAppleMusicViewController.swift in Sources */,
+				F2D160BE1F0EC32B0040E773 /* AppleMusicManager.swift in Sources */,
+				F2D160C31F0EC32B0040E773 /* JSONKeys.swift in Sources */,
+				F2D160B31F0EBF560040E773 /* SearchAppleMusicTableViewCell.swift in Sources */,
+				F2D160C71F0EC32B0040E773 /* SerializationError.swift in Sources */,
 				F2D1609D1F0EB07F0040E773 /* AppDelegate.swift in Sources */,
+				F2D160C41F0EC32B0040E773 /* MediaItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
