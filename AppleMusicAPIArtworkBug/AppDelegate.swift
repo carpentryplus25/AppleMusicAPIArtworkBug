@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  AppleMusicAPIArtworkBug
 //
-//  Created by Thompson on 7/6/17.
+//  Created by William Thompson on 7/6/17.
 //  Copyright © 2017 J.W.Enterprises LLC. All rights reserved.
 //
 
@@ -13,9 +13,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    lazy var authorizationManager: AuthorizationManager = {
+        return AuthorizationManager(appleMusicManager: self.appleMusicManager)
+    }()
+    lazy var mediaLibraryManager: MediaLibraryManager = {
+        return MediaLibraryManager(authorizationManager: self.authorizationManager)
+    }()
+    
+    var appleMusicManager = AppleMusicManager()
+    var musicPlayerManager = MusicPlayerManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let nowPlayingViewController = NowPlayingViewController()
+        nowPlayingViewController.authorizationManager = authorizationManager
+        nowPlayingViewController.mediaLibraryManager = mediaLibraryManager
+        nowPlayingViewController.musicPlayerManager = musicPlayerManager
         return true
     }
 
