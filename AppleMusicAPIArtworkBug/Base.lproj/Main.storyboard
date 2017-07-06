@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="126"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XuZ-0s-jHa" id="HsY-Vz-tVe">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="125.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tTp-Od-jrk">
@@ -41,7 +41,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq2-iU-x9H">
-                                                    <rect key="frame" x="113" y="8" width="254" height="21"/>
+                                                    <rect key="frame" x="113" y="8" width="199" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="SLF-ie-ZMC"/>
                                                     </constraints>
@@ -50,7 +50,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Da-pX-3WF">
-                                                    <rect key="frame" x="113" y="34" width="254" height="21"/>
+                                                    <rect key="frame" x="113" y="34" width="199" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="t1j-YZ-KZN"/>
                                                     </constraints>
@@ -59,10 +59,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gxn-00-Rp9">
-                                                    <rect key="frame" x="321" y="89" width="46" height="30"/>
+                                                    <rect key="frame" x="266" y="89" width="46" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="0jg-ZY-SPz"/>
-                                                        <constraint firstAttribute="height" constant="30" id="z8o-Ab-b8A"/>
                                                     </constraints>
                                                     <state key="normal" title="Play"/>
                                                     <connections>
@@ -72,7 +71,6 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmT-7K-4pG">
                                                     <rect key="frame" x="108" y="87" width="159" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="cb5-QO-AAf"/>
                                                         <constraint firstAttribute="width" constant="159" id="pnE-M3-mjb"/>
                                                     </constraints>
                                                     <state key="normal" title="Add Song To Playlist"/>
