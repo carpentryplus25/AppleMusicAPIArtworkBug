@@ -30,6 +30,7 @@ class MediaItem {
     let type: MediaType
     
     init(json: [String: Any]) throws {
+        
         guard let identifier = json[JSONKeys.identifier] as? String else {
             throw SerializationError.missing(JSONKeys.identifier)
         }

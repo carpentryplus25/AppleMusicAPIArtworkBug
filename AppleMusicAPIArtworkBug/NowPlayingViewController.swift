@@ -9,7 +9,7 @@
 import UIKit
 
 class NowPlayingViewController: UIViewController {
-
+    
     @IBOutlet weak var skipBackward: UIButton!
     @IBOutlet weak var skipForward: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
@@ -20,12 +20,18 @@ class NowPlayingViewController: UIViewController {
     
     var appleMusicManager = AppleMusicManager()
     var musicPlayerManager = MusicPlayerManager()
+    var imageManager = ImageManager()
     lazy var authorizationManager: AuthorizationManager = {
         return AuthorizationManager(appleMusicManager: self.appleMusicManager)
     }()
     lazy var mediaLibraryManager: MediaLibraryManager = {
         return MediaLibraryManager(authorizationManager: self.authorizationManager)
     }()
+    var setterQueue = DispatchQueue(label: "NowPlayingViewController")
+    var artwork: Artwork?
+    var json: [String: Any] = [:]
+    var mediaItem = [[MediaItem]]()
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,16 +86,56 @@ class NowPlayingViewController: UIViewController {
     
     func updateUserInterface() {
         if let currentItem = musicPlayerManager.musicPlayerController.nowPlayingItem {
+            guard let developerToken = appleMusicManager.fetchDeveloperToken() else {
+                print("oops")
+                return
+            }
             artworkImageView.image = currentItem.artwork?.image(at: artworkImageView.frame.size)
             songAlbumLabel.text = currentItem.albumTitle
             songTitleLabel.text = currentItem.title
             songArtistNameLabel.text = currentItem.artist
+            let searchTerm = songAlbumLabel.text
+            let searchTypes = "albums"
+            var searchURLComponents = URLComponents()
+            searchURLComponents.scheme = "https"
+            searchURLComponents.host = "api.music.apple.com"
+            searchURLComponents.path = "/v1/catalog/"
+            searchURLComponents.path += "\(authorizationManager.cloudServiceStoreFrontCountryCode)"
+            searchURLComponents.path += "/search"
+            searchURLComponents.queryItems = [
+                URLQueryItem(name: "term", value: searchTerm),
+                URLQueryItem(name: "types", value: searchTypes)
+            ]
+            var request = URLRequest(url: searchURLComponents.url!)
+            request.httpMethod = "GET"
+            request.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+            let dataTask = URLSession.shared.dataTask(with: request) {
+                (data, response, error) in
+                print(response!)
+                if let searchData = data {
+                    let results = try! self.appleMusicManager.processMediaItemSections(searchData)
+                    self.mediaItem = results
+                    let album = self.mediaItem[0][0]
+                    let albumArtworkURL = album.artwork.imageUrl(self.artworkImageView.frame.size)
+                    if let image = self.imageManager.cachedImage(url: albumArtworkURL) {
+                        self.artworkImageView.image = image
+                    }
+                    else {
+                        self.imageManager.fetchImage(url: albumArtworkURL) {(image) in
+                            self.artworkImageView.image = image
+                        }
+                    }
+                }
+            }
+            dataTask.resume()
         } else {
             artworkImageView.image = nil
             songArtistNameLabel.text = " "
             songTitleLabel.text = " "
             songAlbumLabel.text = " "
         }
+        
+        
     }
     
     func handleMusicPlayerDidUpdate() {
@@ -98,6 +144,10 @@ class NowPlayingViewController: UIViewController {
             self.updateUserInterface()
         }
     }
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 

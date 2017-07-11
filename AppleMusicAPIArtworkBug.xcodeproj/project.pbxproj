@@ -384,6 +384,7 @@
 				F2D160AD1F0EB07F0040E773 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
