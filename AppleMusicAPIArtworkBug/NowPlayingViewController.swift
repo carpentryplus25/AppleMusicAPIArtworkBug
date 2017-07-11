@@ -113,7 +113,7 @@ class NowPlayingViewController: UIViewController {
                 (data, response, error) in
                 print(response!)
                 if let searchData = data {
-                    let results = try! self.appleMusicManager.processMediaItemSections(searchData)
+                    guard let results = try? self.appleMusicManager.processMediaItemSections(searchData) else { return}
                     self.mediaItem = results
                     let album = self.mediaItem[0][0]
                     let albumArtworkURL = album.artwork.imageUrl(self.artworkImageView.frame.size)
