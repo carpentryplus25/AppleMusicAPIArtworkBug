@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class NowPlayingViewController: UIViewController {
     
@@ -85,58 +86,74 @@ class NowPlayingViewController: UIViewController {
     }
     
     func updateUserInterface() {
-        if let currentItem = musicPlayerManager.musicPlayerController.nowPlayingItem {
-            guard let developerToken = appleMusicManager.fetchDeveloperToken() else {
-                print("oops")
-                return
-            }
-            artworkImageView.image = currentItem.artwork?.image(at: artworkImageView.frame.size)
-            songAlbumLabel.text = currentItem.albumTitle
-            songTitleLabel.text = currentItem.title
-            songArtistNameLabel.text = currentItem.artist
-            let searchTerm = songAlbumLabel.text
-            let searchTypes = "albums"
-            var searchURLComponents = URLComponents()
-            searchURLComponents.scheme = "https"
-            searchURLComponents.host = "api.music.apple.com"
-            searchURLComponents.path = "/v1/catalog/"
-            searchURLComponents.path += "\(authorizationManager.cloudServiceStoreFrontCountryCode)"
-            searchURLComponents.path += "/search"
-            searchURLComponents.queryItems = [
-                URLQueryItem(name: "term", value: searchTerm),
-                URLQueryItem(name: "types", value: searchTypes)
-            ]
-            var request = URLRequest(url: searchURLComponents.url!)
-            request.httpMethod = "GET"
-            request.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-            let dataTask = URLSession.shared.dataTask(with: request) {
-                (data, response, error) in
-                print(response!)
-                if let searchData = data {
-                    guard let results = try? self.appleMusicManager.processMediaItemSections(searchData) else { return}
-                    self.mediaItem = results
-                    let album = self.mediaItem[0][0]
-                    let albumArtworkURL = album.artwork.imageUrl(self.artworkImageView.frame.size)
-                    if let image = self.imageManager.cachedImage(url: albumArtworkURL) {
-                        self.artworkImageView.image = image
-                    }
-                    else {
-                        self.imageManager.fetchImage(url: albumArtworkURL) {(image) in
+        if musicPlayerManager.musicPlayerController.playbackState == .playing {
+            if let currentItem = musicPlayerManager.musicPlayerController.nowPlayingItem {
+                songAlbumLabel.text = currentItem.albumTitle
+                songTitleLabel.text = currentItem.title
+                songArtistNameLabel.text = currentItem.artist
+                let playbackStoreID = currentItem.playbackStoreID
+                if let artwork = musicPlayerManager.musicPlayerController.nowPlayingItem?.artwork, let image = artwork.image(at: artworkImageView.frame.size) {
+                    print("using local image")
+                    artworkImageView.image = image
+            } else {
+                guard let developerToken = appleMusicManager.fetchDeveloperToken() else {print("oops");return}
+                let searchTypes = "songs"
+                var searchURLComponents = URLComponents()
+                searchURLComponents.scheme = "https"
+                searchURLComponents.host = "api.music.apple.com"
+                searchURLComponents.path = "/v1/catalog/"
+                searchURLComponents.path += "\(authorizationManager.cloudServiceStoreFrontCountryCode)"
+                searchURLComponents.path += "/search"
+                searchURLComponents.queryItems = [
+                    URLQueryItem(name: "term", value: playbackStoreID),
+                    URLQueryItem(name: "types", value: searchTypes)
+                ]
+                var request = URLRequest(url: searchURLComponents.url!)
+                request.httpMethod = "GET"
+                request.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+                let dataTask = URLSession.shared.dataTask(with: request) {
+                    (data, response, error) in
+                    print(response!)
+                    if let searchData = data {
+                        guard let results = try? self.appleMusicManager.processMediaItemSections(searchData) else { return}
+                        self.mediaItem = results
+                        let album = self.mediaItem[0][0]
+                        let albumArtworkURL = album.artwork.imageUrl(self.artworkImageView.frame.size)
+                        if let image = self.imageManager.cachedImage(url: albumArtworkURL) {
+                            print("using cached image")
                             self.artworkImageView.image = image
+                        }
+                        else {
+                            self.imageManager.fetchImage(url: albumArtworkURL) {(image) in
+                                print("fetching image")
+                                self.artworkImageView.image = image
+                            }
                         }
                     }
                 }
+                dataTask.resume()
             }
-            dataTask.resume()
         } else {
             artworkImageView.image = nil
             songArtistNameLabel.text = " "
             songTitleLabel.text = " "
             songAlbumLabel.text = " "
+            }
         }
-        
-        
     }
+    
+    func processMediaItemSections(_ json: Data) throws -> [[MediaItem]] {
+        guard let jsonDictionary = try JSONSerialization.jsonObject(with: json, options: []) as? [String: Any], let results = jsonDictionary[ResponseRootJSONKeys.results] as? [String: [String: Any]] else {throw SerializationError.missing(ResponseRootJSONKeys.results)}
+        if let songsDictionary = results[ResourceTypeJSONKeys.songs] {
+            if let dataArray = songsDictionary[ResponseRootJSONKeys.data] as? [[String: Any]] {
+                let songMediaItems = try appleMusicManager.processMediaItems(from: dataArray)
+                mediaItem.append(songMediaItems)
+            }
+        }
+        return mediaItem
+    }
+    
+    
     
     func handleMusicPlayerDidUpdate() {
         DispatchQueue.main.async {
