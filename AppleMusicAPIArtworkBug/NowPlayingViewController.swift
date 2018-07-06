@@ -86,45 +86,51 @@ class NowPlayingViewController: UIViewController {
     }
     
     func updateUserInterface() {
-        if musicPlayerManager.musicPlayerController.playbackState == .playing {
+        if musicPlayerManager.musicPlayerController.playbackState == .playing || musicPlayerManager.musicPlayerController.playbackState == .paused {
             if let currentItem = musicPlayerManager.musicPlayerController.nowPlayingItem {
+                let albumTitle = currentItem.albumTitle
+                let artist = currentItem.artist
                 songAlbumLabel.text = currentItem.albumTitle
                 songTitleLabel.text = currentItem.title
                 songArtistNameLabel.text = currentItem.artist
-                let playbackStoreID = currentItem.playbackStoreID
+                
                 if let artwork = musicPlayerManager.musicPlayerController.nowPlayingItem?.artwork, let image = artwork.image(at: artworkImageView.frame.size) {
                     print("using local image")
                     artworkImageView.image = image
-            } else {
-                guard let developerToken = appleMusicManager.fetchDeveloperToken() else {print("oops");return}
-                let searchTypes = "songs"
-                var searchURLComponents = URLComponents()
-                searchURLComponents.scheme = "https"
-                searchURLComponents.host = "api.music.apple.com"
-                searchURLComponents.path = "/v1/catalog/"
-                searchURLComponents.path += "\(authorizationManager.cloudServiceStoreFrontCountryCode)"
-                searchURLComponents.path += "/search"
-                searchURLComponents.queryItems = [
-                    URLQueryItem(name: "term", value: playbackStoreID),
-                    URLQueryItem(name: "types", value: searchTypes)
-                ]
-                var request = URLRequest(url: searchURLComponents.url!)
-                request.httpMethod = "GET"
-                request.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
-                let dataTask = URLSession.shared.dataTask(with: request) {
-                    (data, response, error) in
-                    print(response!)
-                    if let searchData = data {
-                        guard let results = try? self.appleMusicManager.processMediaItemSections(searchData) else { return}
-                        self.mediaItem = results
-                        let album = self.mediaItem[0][0]
-                        let albumArtworkURL = album.artwork.imageUrl(self.artworkImageView.frame.size)
-                        if let image = self.imageManager.cachedImage(url: albumArtworkURL) {
-                            print("using cached image")
-                            self.artworkImageView.image = image
-                        }
-                        else {
-                            self.imageManager.fetchImage(url: albumArtworkURL) {(image) in
+                } else {
+                    guard let developerToken = appleMusicManager.fetchDeveloperToken() else {print("oops");return}
+                    let searchTypes = "songs"
+                    var searchURLComponents = URLComponents()
+                    searchURLComponents.scheme = "https"
+                    searchURLComponents.host = "api.music.apple.com"
+                    searchURLComponents.path = "/v1/catalog/"
+                    searchURLComponents.path += "\(authorizationManager.cloudServiceStoreFrontCountryCode)"
+                    searchURLComponents.path += "/search"
+                    let expectedArtist = artist?.replacingOccurrences(of: " ", with: "+")
+                    let artistExpected = expectedArtist?.replacingOccurrences(of: "&", with: "")
+                    let expectingArtist = artistExpected?.replacingOccurrences(of: "++", with: "+")
+                    let expectedAlbum = albumTitle?.replacingOccurrences(of: " ", with: "+")
+                    searchURLComponents.queryItems = [
+                        URLQueryItem(name: "term", value: (expectingArtist! + "-" + expectedAlbum!)),
+                        URLQueryItem(name: "types", value: searchTypes)
+                    ]
+                    var request = URLRequest(url: searchURLComponents.url!)
+                    request.httpMethod = "GET"
+                    request.addValue("Bearer \(developerToken)", forHTTPHeaderField: "Authorization")
+                    let dataTask = URLSession.shared.dataTask(with: request) {
+                        (data, response, error) in
+                        print(response!)
+                        if let searchData = data {
+                            guard let results = try? self.appleMusicManager.processMediaItemSections(searchData) else { return}
+                            self.mediaItem = results
+                            let album = self.mediaItem[0][0]
+                            let albumArtworkURL = album.artwork.imageUrl(self.artworkImageView.frame.size)
+                            if let image = self.imageManager.cachedImage(url: albumArtworkURL) {
+                                print("using cached image")
+                                self.artworkImageView.image = image
+                            }
+                            else {
+                                self.imageManager.fetchImage(url: albumArtworkURL) {(image) in
                                 print("fetching image")
                                 self.artworkImageView.image = image
                             }
